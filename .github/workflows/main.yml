@@ -23,4 +23,4 @@ jobs:
       - name: Run agent
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-        run: python simple_agent/main.py
+        run: python Agentd/simple_agent/main.py
