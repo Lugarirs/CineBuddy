@@ -1,5 +1,5 @@
 # from google.adk.agents.llm_agent import Agent
-from simple_agent import prompt
+from Agentd.simple_agent import prompt
 import os
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
