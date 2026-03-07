@@ -1,6 +1,8 @@
 # from google.adk.agents.llm_agent import Agent
 from simple_agent import prompt
+import os
 
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 # Temporary Agent class definition for development if the import is unavailable
 class Agent:
     def __init__(self, model, name, description, instruction):
