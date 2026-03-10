@@ -1,4 +1,7 @@
 google-adk
 python-dotenv
 google-adk
-liteLm
+fastapi
+uvicorn
+streamlit 
+requests
