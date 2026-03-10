@@ -1,20 +1,19 @@
 import streamlit as st
 import requests
 
-st.title("AI Travel Agent")
+st.title("Underrated Movies Finder")
 
-user_input = st.text_input("Ask your travel question")
+query = st.text_input("Enter a movie-related query (optional):")
 
-if st.button("Send"):
-
-    payload = {"question": user_input}
-
+if st.button("Get Underrated Movies"):
     response = requests.post(
-        "http://127.0.0.1:8000/chat",
-        json=payload
+        "http://localhost:8000/underrated-movies",
+        json={"query": query}
     )
-
-    data = response.json()
-
-    st.write("### Agent Response")
-    st.write(data["response"])
+    if response.status_code == 200:
+        movies = response.json().get("underrated_movies", [])
+        st.write("### Underrated Movies:")
+        for movie in movies:
+            st.write(f"- {movie}")
+    else:
+        st.error("Failed to fetch movies. Is the FastAPI server running?")

@@ -1,24 +1,22 @@
-# from google.adk.agents.llm_agent import Agent
-from Agentd.simple_agent import prompt
-import os
-
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-# Temporary Agent class definition for development if the import is unavailable
-class Agent:
-    def __init__(self, model, name, description, instruction):
-        self.model = model
-        self.name = name
-        self.description = description
-        self.instruction = instruction
+from google.adk.agents.llm_agent import Agent
+from dotenv import load_dotenv
+from . import prompt
+load_dotenv()  # Load environment variables from .env file
 # Mock tool implementation
-def get_current_time(city: str) -> dict:
-    """Returns the current time in a specified city."""
-    return {"status": "success", "city": city, "time": "10:30 AM"}
+def get_underrated_movies(query=None):
+    # This is a mock implementation. Replace with actual logic as needed.
+    return [
+        "The Fall (2006)",
+        "Moon (2009)",
+        "Coherence (2013)",
+        "The Man from Earth (2007)",
+        "Hunt for the Wilderpeople (2016)"
+    ]
 
 root_agent = Agent(
     model='gemini-3-flash-preview',
     name='root_agent',
-    description="A Travel Conceirge using the services of multiple sub-agents",
+    description="Youre a cinema agent that you will give the underrated best movies",
     instruction=prompt.ROOT_AGENT_INSTR,
-    
+    tools=[get_underrated_movies],
 )
