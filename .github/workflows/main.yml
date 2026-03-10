@@ -20,6 +20,24 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Start FastAPI
+        run: |
+          nohup uvicorn Agentd.fastapi_app:app --host 127.0.0.1 --port 8000 &
+          sleep 5
+
+      - name: Start Streamlit
+        run: |
+          nohup streamlit run Agentd/streamlit_app.py --server.headless true &
+          sleep 5
+
+      - name: Check FastAPI
+        run: |
+          curl -f http://127.0.0.1:8000/docs || exit 1
+
+      - name: Check Streamlit
+        run: |
+          curl -f http://127.0.0.1:8501 || exit 1
+
       - name: Run agent
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
