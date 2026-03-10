@@ -22,8 +22,15 @@ jobs:
 
       - name: Start FastAPI
         run: |
-          nohup uvicorn Agentd.fastapi_app:app --host 127.0.0.1 --port 8000 &
+          nohup uvicorn Agentd.fastapi_app:app --host 127.0.0.1 --port 8000 > fastapi.log 2>&1 &
           sleep 5
+
+      - name: Print FastAPI logs
+        run: cat fastapi.log
+
+      - name: Check FastAPI
+        run: |
+          curl -f http://127.0.0.1:8000/docs || exit 1
 
       - name: Start Streamlit
         run: |
