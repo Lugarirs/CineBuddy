@@ -389,6 +389,25 @@ for k, v in defaults.items():
         st.session_state[k] = v
 
 # --------------------------------------------------------------------------- #
+#  Wake-up Check — ping FastAPI on first load                                 #
+# --------------------------------------------------------------------------- #
+if not st.session_state.get("api_ready", False):
+    with st.spinner("🎬 Starting up CineMood... (first load may take 30s)"):
+        import time
+        for attempt in range(6):
+            try:
+                resp = requests.get(f"{API_URL}/health", timeout=10)
+                if resp.status_code == 200:
+                    st.session_state.api_ready = True
+                    break
+            except Exception:
+                pass
+            time.sleep(5)
+    if not st.session_state.get("api_ready", False):
+        st.error("⚠️ API is taking longer than usual to wake up. Please refresh the page.")
+        st.stop()
+
+# --------------------------------------------------------------------------- #
 #  Sidebar                                                                    #
 # --------------------------------------------------------------------------- #
 with st.sidebar:
