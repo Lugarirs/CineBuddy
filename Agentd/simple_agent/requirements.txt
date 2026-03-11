@@ -1,6 +1,7 @@
-python-dotenv
-google-adk
 fastapi
 uvicorn
-streamlit 
+google-adk
+google-genai
+python-dotenv
+streamlit
 requests

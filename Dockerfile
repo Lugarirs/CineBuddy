@@ -1,9 +1,13 @@
-FROM python:3.10
+FROM python:3.11-slim
 
 WORKDIR /app
 
+# Copy everything
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
 
-RUN pip install --no-cache-dir -r Agentd/simple_agent/requirements.txt
+EXPOSE 8000
 
-CMD ["uvicorn", "Agentd.simple_agent.app:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "simple_agent.app:app", "--host", "0.0.0.0", "--port", "8000"]
