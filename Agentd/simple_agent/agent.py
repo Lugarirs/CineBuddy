@@ -58,7 +58,7 @@ def search_movies(query: str) -> dict:
 
 
 root_agent = Agent(
-    model="gemini-3-flash-preview",
+    model="gemini-2.5-flash",
     name="cinemood_agent",
     description="A warm cinema companion recommending underrated movies based on mood and life situations.",
     instruction=prompt.ROOT_AGENT_INSTR,
